@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('esdeveniments', function (Blueprint $table) {
+            $table->id();
+            $table->string('titol');
+            $table->text('descripcio')->nullable();
+            $table->dateTime('data_esdeveniment');
+            $table->decimal('preu', 8,2);
+            $table->boolean('actiu')->default(true);
+            $table->foreignId('espai_id')->constrained();
+            $table->foreignId('organitzador_id')->constrained();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('esdeveniments');
+    }
+};
